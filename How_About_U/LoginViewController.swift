@@ -29,21 +29,33 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func tapLoginButton(_ sender: UIButton) {
-        for user in userList{
-            if(user.email == idTextField.text && user.password == pwTextField.text){
-                guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
-                mainViewController.modalPresentationStyle = .fullScreen
-                self.present(mainViewController, animated: true)
-            }
-            else{
-                let alert = UIAlertController(title: "아이디 또는 비밀번호가 틀렸습니다.", message: "아이디 또는 비밀번호를 확인해주세요.", preferredStyle: .alert)
-                
-                let checkButton = UIAlertAction(title: "확인", style: .cancel )
-                
-                alert.addAction(checkButton)
-                self.present(alert, animated: true)
-            }
-        }
+        
+        
+//        for user in userList{
+//            if(user.email == idTextField.text && user.password == pwTextField.text){
+//                guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
+//                mainViewController.modalPresentationStyle = .fullScreen
+//                self.present(mainViewController, animated: true)
+//            }
+//            else{
+//                let alert = UIAlertController(title: "아이디 또는 비밀번호가 틀렸습니다.", message: "아이디 또는 비밀번호를 확인해주세요.", preferredStyle: .alert)
+//
+//                let checkButton = UIAlertAction(title: "확인", style: .cancel )
+//
+//                alert.addAction(checkButton)
+//                self.present(alert, animated: true)
+//            }
+//        }
+        
+//        guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
+//        mainViewController.modalPresentationStyle = .fullScreen
+//        self.present(mainViewController, animated: true)
+        
+        guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {return}
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true)
+        
+        
         
     }
     

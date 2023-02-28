@@ -13,6 +13,12 @@
 		312DDDAB29A0D0D800A962FB /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDAA29A0D0D800A962FB /* Topic.swift */; };
 		312DDDAD29A0D13B00A962FB /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDAC29A0D13B00A962FB /* MainViewController.swift */; };
 		312DDDAF29A37C7000A962FB /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDAE29A37C7000A962FB /* Vote.swift */; };
+		312DDDB129A764F300A962FB /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDB029A764F300A962FB /* TabBarController.swift */; };
+		312DDDB429A76CF900A962FB /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDB229A76CF900A962FB /* ChatCell.swift */; };
+		312DDDB529A76CF900A962FB /* ChatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 312DDDB329A76CF900A962FB /* ChatCell.xib */; };
+		312DDDB729A7712300A962FB /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312DDDB629A7712300A962FB /* ChatViewController.swift */; };
+		312DDDC029AB37A000A962FB /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 312DDDBF29AB37A000A962FB /* Charts */; };
+		312DDDC529AB482000A962FB /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 312DDDC429AB482000A962FB /* Algorithms */; };
 		317CC711299F5B0400815DED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CC710299F5B0400815DED /* AppDelegate.swift */; };
 		317CC713299F5B0400815DED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CC712299F5B0400815DED /* SceneDelegate.swift */; };
 		317CC715299F5B0400815DED /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CC714299F5B0400815DED /* LoginViewController.swift */; };
@@ -28,6 +34,10 @@
 		312DDDAA29A0D0D800A962FB /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		312DDDAC29A0D13B00A962FB /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		312DDDAE29A37C7000A962FB /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
+		312DDDB029A764F300A962FB /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		312DDDB229A76CF900A962FB /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		312DDDB329A76CF900A962FB /* ChatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatCell.xib; sourceTree = "<group>"; };
+		312DDDB629A7712300A962FB /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		317CC70D299F5B0400815DED /* How_About_U.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = How_About_U.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		317CC710299F5B0400815DED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		317CC712299F5B0400815DED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				312DDDC529AB482000A962FB /* Algorithms in Frameworks */,
+				312DDDC029AB37A000A962FB /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +93,10 @@
 				312DDDA829A0D0CD00A962FB /* Opinion.swift */,
 				312DDDAA29A0D0D800A962FB /* Topic.swift */,
 				312DDDAE29A37C7000A962FB /* Vote.swift */,
+				312DDDB029A764F300A962FB /* TabBarController.swift */,
+				312DDDB229A76CF900A962FB /* ChatCell.swift */,
+				312DDDB329A76CF900A962FB /* ChatCell.xib */,
+				312DDDB629A7712300A962FB /* ChatViewController.swift */,
 			);
 			path = How_About_U;
 			sourceTree = "<group>";
@@ -101,6 +117,10 @@
 			dependencies = (
 			);
 			name = How_About_U;
+			packageProductDependencies = (
+				312DDDBF29AB37A000A962FB /* Charts */,
+				312DDDC429AB482000A962FB /* Algorithms */,
+			);
 			productName = How_About_U;
 			productReference = 317CC70D299F5B0400815DED /* How_About_U.app */;
 			productType = "com.apple.product-type.application";
@@ -129,6 +149,10 @@
 				Base,
 			);
 			mainGroup = 317CC704299F5B0400815DED;
+			packageReferences = (
+				312DDDBE29AB37A000A962FB /* XCRemoteSwiftPackageReference "Charts" */,
+				312DDDC329AB482000A962FB /* XCRemoteSwiftPackageReference "swift-algorithms" */,
+			);
 			productRefGroup = 317CC70E299F5B0400815DED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -144,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				317CC71D299F5B0500815DED /* LaunchScreen.storyboard in Resources */,
+				312DDDB529A76CF900A962FB /* ChatCell.xib in Resources */,
 				317CC71A299F5B0500815DED /* Assets.xcassets in Resources */,
 				317CC718299F5B0400815DED /* Main.storyboard in Resources */,
 			);
@@ -158,12 +183,15 @@
 			files = (
 				317CC715299F5B0400815DED /* LoginViewController.swift in Sources */,
 				317CC711299F5B0400815DED /* AppDelegate.swift in Sources */,
+				312DDDB429A76CF900A962FB /* ChatCell.swift in Sources */,
 				312DDDA929A0D0CD00A962FB /* Opinion.swift in Sources */,
+				312DDDB129A764F300A962FB /* TabBarController.swift in Sources */,
 				312DDDA529A0C57700A962FB /* SignupViewController.swift in Sources */,
 				312DDDA729A0D0BD00A962FB /* User.swift in Sources */,
 				317CC713299F5B0400815DED /* SceneDelegate.swift in Sources */,
 				312DDDAB29A0D0D800A962FB /* Topic.swift in Sources */,
 				312DDDAF29A37C7000A962FB /* Vote.swift in Sources */,
+				312DDDB729A7712300A962FB /* ChatViewController.swift in Sources */,
 				312DDDAD29A0D13B00A962FB /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +410,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		312DDDBE29AB37A000A962FB /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
+		312DDDC329AB482000A962FB /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-algorithms.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		312DDDBF29AB37A000A962FB /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 312DDDBE29AB37A000A962FB /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
+		312DDDC429AB482000A962FB /* Algorithms */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 312DDDC329AB482000A962FB /* XCRemoteSwiftPackageReference "swift-algorithms" */;
+			productName = Algorithms;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 317CC705299F5B0400815DED /* Project object */;
 }

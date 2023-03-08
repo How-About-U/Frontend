@@ -22,7 +22,7 @@ class ChatViewController: UIViewController {
         for opinin in 31...45{
             list.append(.init(user: "\(opinin)", content: "\(opinin)"))
         }
-        
+        configureRefreshControl()
         appendList()
         
         chatTextField.delegate = self
@@ -43,6 +43,23 @@ class ChatViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
+    
+    func configureRefreshControl () {
+        chatTableView.refreshControl = UIRefreshControl()
+        chatTableView.refreshControl?.addTarget(self, action:
+                                          #selector(handleRefreshControl),
+                                          for: .valueChanged)
+    }
+
+    @objc func handleRefreshControl() {
+       
+       DispatchQueue.main.async {
+          self.chatTableView.refreshControl?.endRefreshing()
+       }
+    }
+    
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self,name: UIResponder.keyboardWillShowNotification, object: nil)

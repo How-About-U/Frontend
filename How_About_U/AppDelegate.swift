@@ -4,10 +4,21 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let loginViewController = LoginViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        sleep(1)
+        
+//        if let userId = UserDefaults.standard.string(forKey: "id"){
+//            if let userPw = UserDefaults.standard.string(forKey: "pw"){
+//                print("AppDelegate")
+//                print(userId)
+//                print(userPw)
+//                loginViewController.goToTabBarController()
+//            }
+//        }
+        
         return true
     }
 

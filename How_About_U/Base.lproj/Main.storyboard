@@ -19,7 +19,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="하우바츄" translatesAutoresizingMaskIntoConstraints="NO" id="hWz-mA-Rjm">
                                 <rect key="frame" x="24" y="71" width="342" height="184"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Hkc-f2-Jlz">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="Hkc-f2-Jlz" userLabel="Stack View1">
                                 <rect key="frame" x="24" y="279" width="342" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xXT-KE-2Fr">
@@ -58,8 +58,28 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="MiZ-rE-6rI">
-                                <rect key="frame" x="45" y="479" width="300" height="117"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="u8o-xM-BeY" userLabel="Stack View2">
+                                <rect key="frame" x="24" y="449" width="166" height="22"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iy6-H8-08R">
+                                        <rect key="frame" x="0.0" y="0.0" width="15" height="22"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="square" catalog="system"/>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="tapAutoLoginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LAf-aF-dTR"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자동 로그인" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXN-w7-E2w">
+                                        <rect key="frame" x="20" y="0.0" width="146" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="MiZ-rE-6rI" userLabel="Stack View3">
+                                <rect key="frame" x="45" y="521" width="300" height="117"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0K-8V-reT">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
@@ -101,13 +121,17 @@
                             <constraint firstItem="Hkc-f2-Jlz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="3Of-a9-V2h"/>
                             <constraint firstItem="Hkc-f2-Jlz" firstAttribute="top" secondItem="hWz-mA-Rjm" secondAttribute="bottom" constant="24" id="6e8-aM-TQn"/>
                             <constraint firstItem="hWz-mA-Rjm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="N6L-m6-Lmh"/>
+                            <constraint firstItem="u8o-xM-BeY" firstAttribute="top" secondItem="Hkc-f2-Jlz" secondAttribute="bottom" constant="20" id="bUE-9e-sec"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hkc-f2-Jlz" secondAttribute="trailing" constant="24" id="dD1-Lu-WYn"/>
-                            <constraint firstItem="MiZ-rE-6rI" firstAttribute="top" secondItem="Hkc-f2-Jlz" secondAttribute="bottom" constant="50" id="hbt-Sg-GIN"/>
+                            <constraint firstItem="MiZ-rE-6rI" firstAttribute="top" secondItem="u8o-xM-BeY" secondAttribute="bottom" constant="50" id="hbt-Sg-GIN"/>
+                            <constraint firstItem="u8o-xM-BeY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="24" id="hlS-we-wo0"/>
                             <constraint firstItem="hWz-mA-Rjm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="iyp-Yq-s98"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="u8o-xM-BeY" secondAttribute="trailing" constant="200" id="r1A-Mw-jFX"/>
                             <constraint firstItem="MiZ-rE-6rI" firstAttribute="centerX" secondItem="hWz-mA-Rjm" secondAttribute="centerX" id="xwG-n8-7KM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="autoLoginButton" destination="iy6-H8-08R" id="t0v-nZ-QWp"/>
                         <outlet property="idTextField" destination="1GC-hG-C4V" id="DWf-dx-NrY"/>
                         <outlet property="loginButton" destination="F0K-8V-reT" id="Aia-4w-Jtx"/>
                         <outlet property="pwTextField" destination="1hf-CJ-QP7" id="wnc-6I-Y18"/>
@@ -448,14 +472,25 @@
         <!--Item-->
         <scene sceneID="FLC-Ay-jZg">
             <objects>
-                <viewController id="Oea-ra-Kwj" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyPageViewController" id="Oea-ra-Kwj" customClass="MyPageViewController" customModule="How_About_U" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pHe-RL-btC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gzv-so-2WX">
+                                <rect key="frame" x="154" y="311" width="83" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="로그아웃"/>
+                                <connections>
+                                    <action selector="tapLogoutButton:" destination="Oea-ra-Kwj" eventType="touchUpInside" id="2Rc-Vm-WLc"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="qle-J3-HOb"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="MfA-BF-W2f"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="person" catalog="system" selectedImage="person.fill" id="MfA-BF-W2f"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ZE-tr-dUi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -563,6 +598,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
@@ -570,6 +606,8 @@
         <image name="message" catalog="system" width="128" height="116"/>
         <image name="message.fill" catalog="system" width="128" height="114"/>
         <image name="person" catalog="system" width="128" height="121"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="square" catalog="system" width="128" height="114"/>
         <image name="하우바츄" width="212" height="184"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

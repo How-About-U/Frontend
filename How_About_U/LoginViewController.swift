@@ -12,12 +12,42 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBOutlet weak var autoLoginButton: UIButton!
     
+    var isAutoLogin = false
+    
+    lazy var alert: UIAlertController = {
+        
+        let alert = UIAlertController(title: "아이디 또는 비밀번호가 틀렸습니다.", message: "아이디 또는 비밀번호를 확인해주세요.", preferredStyle: .alert)
+        
+        let checkButton = UIAlertAction(title: "확인", style: .cancel )
+        
+        alert.addAction(checkButton)
+        return alert
+    }()
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if let userId = UserDefaults.standard.string(forKey: "id"){
+            if let userPw = UserDefaults.standard.string(forKey: "pw"){
+                print("loginPage")
+                print(userId)
+                print(userPw)
+                self.goToTabBarController()
+            }
+        }
+        
+        print("\(UserDefaults.standard.string(forKey: "id"))")
+        print("\(UserDefaults.standard.string(forKey: "pw"))")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
+        
+        
+                
         [idTextField,pwTextField].forEach{
             drawUnderLine(textField: $0)
             
@@ -31,31 +61,24 @@ class LoginViewController: UIViewController {
     @IBAction func tapLoginButton(_ sender: UIButton) {
         
         
-//        for user in userList{
-//            if(user.email == idTextField.text && user.password == pwTextField.text){
-//                guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
-//                mainViewController.modalPresentationStyle = .fullScreen
-//                self.present(mainViewController, animated: true)
-//            }
-//            else{
-//                let alert = UIAlertController(title: "아이디 또는 비밀번호가 틀렸습니다.", message: "아이디 또는 비밀번호를 확인해주세요.", preferredStyle: .alert)
-//
-//                let checkButton = UIAlertAction(title: "확인", style: .cancel )
-//
-//                alert.addAction(checkButton)
+        for user in userList{
+            print(user)
+            if(user.email == idTextField.text && user.password == pwTextField.text){
+                if self.isAutoLogin{
+                  
+                    UserDefaults.standard.set(self.idTextField.text, forKey: "id")
+                    UserDefaults.standard.set(self.pwTextField.text, forKey: "pw")
+                }
+                self.goToTabBarController()
+                break
+                
+            }
+            else{
+//                print("alert")
 //                self.present(alert, animated: true)
-//            }
-//        }
-        
-//        guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
-//        mainViewController.modalPresentationStyle = .fullScreen
-//        self.present(mainViewController, animated: true)
-        
-        guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {return}
-        tabBarController.modalPresentationStyle = .fullScreen
-        self.present(tabBarController, animated: true)
-        
-        
+//                break
+            }
+        }
         
     }
     
@@ -65,6 +88,26 @@ class LoginViewController: UIViewController {
         self.present(signupViewController, animated: true)
         
     }
+    
+    @IBAction func tapAutoLoginButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        
+        if sender.isSelected == true{
+            isAutoLogin = true
+        }
+        else{
+            isAutoLogin = false
+        }
+        
+        
+    }
+    
+    func goToTabBarController(){
+        guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {return}
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true)
+    }
+    
     
     func drawUnderLine(textField: UITextField){
         let border = CALayer()

@@ -25,6 +25,7 @@
 		317CC718299F5B0400815DED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317CC716299F5B0400815DED /* Main.storyboard */; };
 		317CC71A299F5B0500815DED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317CC719299F5B0500815DED /* Assets.xcassets */; };
 		317CC71D299F5B0500815DED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 317CC71B299F5B0500815DED /* LaunchScreen.storyboard */; };
+		31A7D8EC29B8818800AA3A4B /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A7D8EB29B8818800AA3A4B /* MyPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		317CC719299F5B0500815DED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317CC71C299F5B0500815DED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		317CC71E299F5B0500815DED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31A7D8EB29B8818800AA3A4B /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,25 +82,42 @@
 		317CC70F299F5B0400815DED /* How_About_U */ = {
 			isa = PBXGroup;
 			children = (
+				31A7D8EE29B881C500AA3A4B /* Struct */,
+				31A7D8ED29B8819F00AA3A4B /* TabBar */,
 				317CC710299F5B0400815DED /* AppDelegate.swift */,
 				317CC712299F5B0400815DED /* SceneDelegate.swift */,
-				317CC714299F5B0400815DED /* LoginViewController.swift */,
 				317CC716299F5B0400815DED /* Main.storyboard */,
 				317CC719299F5B0500815DED /* Assets.xcassets */,
 				317CC71B299F5B0500815DED /* LaunchScreen.storyboard */,
 				317CC71E299F5B0500815DED /* Info.plist */,
+				317CC714299F5B0400815DED /* LoginViewController.swift */,
 				312DDDA429A0C57700A962FB /* SignupViewController.swift */,
+				312DDDB229A76CF900A962FB /* ChatCell.swift */,
+				312DDDB329A76CF900A962FB /* ChatCell.xib */,
+			);
+			path = How_About_U;
+			sourceTree = "<group>";
+		};
+		31A7D8ED29B8819F00AA3A4B /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
 				312DDDAC29A0D13B00A962FB /* MainViewController.swift */,
+				312DDDB029A764F300A962FB /* TabBarController.swift */,
+				312DDDB629A7712300A962FB /* ChatViewController.swift */,
+				31A7D8EB29B8818800AA3A4B /* MyPageViewController.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		31A7D8EE29B881C500AA3A4B /* Struct */ = {
+			isa = PBXGroup;
+			children = (
 				312DDDA629A0D0BD00A962FB /* User.swift */,
 				312DDDA829A0D0CD00A962FB /* Opinion.swift */,
 				312DDDAA29A0D0D800A962FB /* Topic.swift */,
 				312DDDAE29A37C7000A962FB /* Vote.swift */,
-				312DDDB029A764F300A962FB /* TabBarController.swift */,
-				312DDDB229A76CF900A962FB /* ChatCell.swift */,
-				312DDDB329A76CF900A962FB /* ChatCell.xib */,
-				312DDDB629A7712300A962FB /* ChatViewController.swift */,
 			);
-			path = How_About_U;
+			path = Struct;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,6 +207,7 @@
 				312DDDB129A764F300A962FB /* TabBarController.swift in Sources */,
 				312DDDA529A0C57700A962FB /* SignupViewController.swift in Sources */,
 				312DDDA729A0D0BD00A962FB /* User.swift in Sources */,
+				31A7D8EC29B8818800AA3A4B /* MyPageViewController.swift in Sources */,
 				317CC713299F5B0400815DED /* SceneDelegate.swift in Sources */,
 				312DDDAB29A0D0D800A962FB /* Topic.swift in Sources */,
 				312DDDAF29A37C7000A962FB /* Vote.swift in Sources */,

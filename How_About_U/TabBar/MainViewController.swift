@@ -21,6 +21,9 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("asdnhkdshgfkjdkghsr")
+        print("\(UserDefaults.standard.string(forKey: "id"))")
+        print("\(UserDefaults.standard.string(forKey: "pw"))")
         
         
         barChartView.delegate = self

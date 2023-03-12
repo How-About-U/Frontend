@@ -1,13 +1,16 @@
 
 import UIKit
 import Charts
-
+import Alamofire
 
 
 class MainViewController: UIViewController {
     
-    var topic: Topic = Topic(title: "탕수육은 부먹? 찍먹?", red: "부먹", blue: "찍먹")
-    lazy var data: [String] = [topic.red,topic.blue]
+    var topic: Topic?
+    var userTk:UserTk?
+    var user:User?
+    
+    lazy var data: [String] = ["레드팀","블루팀"]
     var value: [Int] = [1,0]
     var ratioValue: [Double] = [0,0]
     
@@ -15,20 +18,16 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var subjectLabel: UILabel!
     
-    var user:User? = nil
-    
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("asdnhkdshgfkjdkghsr")
-        print("\(UserDefaults.standard.string(forKey: "id"))")
-        print("\(UserDefaults.standard.string(forKey: "pw"))")
+        //print("\(UserDefaults.standard.string(forKey: "id"))")
+        //print("\(UserDefaults.standard.string(forKey: "pw"))")
         
-        
+        //print("userTK at MAIN : \(userTk)")
+        //print("user at MAIN : \(user)")
         barChartView.delegate = self
         
-        subjectLabel.text = topic.title
+        
         
         barChartView.animate(yAxisDuration: 1.0)
         
@@ -58,6 +57,42 @@ class MainViewController: UIViewController {
         
         setChart(dataPoints: data, values: value.map { Double($0) })
         
+        self.getTopic()
+    }
+    
+    func getTopic(){
+        let url = "http://54.180.199.139:8080/api/topic/get"
+        AF.request(url,
+                   method: .get,
+                   parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type":"application/json"])
+        //.validate(statusCode: 400..<500)
+        .responseJSON { [weak self] response in
+            guard let self = self else { return }
+            switch response.result {
+            case .success(let value):
+                //print("valueGetTopic : \(value)")
+                
+                do{
+                    
+                    let dataJSon = try JSONSerialization.data(withJSONObject: value, options: [])
+                    let topic = try JSONDecoder().decode(Topic.self, from: dataJSon)
+                    
+                    self.topic = topic
+                    print(self.topic)
+                    DispatchQueue.main.async {
+                        self.subjectLabel.text = topic.title
+                    }
+                } catch {
+                    print("decoding error")
+                }
+                
+            case .failure(let error):
+                print("error : \(error)")
+                break;
+            }
+        }
     }
     
     func setChart(dataPoints: [String], values: [Double]) {

@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                print("AppDelegate")
 //                print(userId)
 //                print(userPw)
-//                loginViewController.goToTabBarController()
+//
 //            }
 //        }
         

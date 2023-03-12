@@ -1,11 +1,12 @@
 
 import UIKit
+import Alamofire
 
 class SignupViewController: UIViewController {
     
-    var userList:[User] = [.init(email: "aaaaa", password: "aaaaa11!", username: "aaa", gender: "남"),.init(email: "bbbbb", password: "bbbbb11!", username: "bbb", gender: "남"),.init(email: "ccccc", password: "ccccc11!", username: "ccc", gender: "여")]
+    var userList:[User] = []
     
-    var user:User = .init(email: "", password: "", username: "", gender: "남")
+    var user:User? = .init(email: "", password: "", username: "",grade: "")
     
     @IBOutlet private weak var idTextField: UITextField!
     @IBOutlet weak var idErrorLabel: UILabel!
@@ -22,6 +23,7 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //print(userList)
         completeSignupButton.isEnabled = false
         
         idErrorLabel.isHidden = true
@@ -141,12 +143,13 @@ class SignupViewController: UIViewController {
         for user in userList{
             if(user.email == idTextField.text){
                 let alert = UIAlertController(title: "아이디 중복!", message: "다른 아이디를 입력해주세요.", preferredStyle: .alert)
-                
+
                 let checkButton = UIAlertAction(title: "확인", style: .cancel )
-                
+
                 alert.addAction(checkButton)
                 self.present(alert, animated: true)
                 check = false
+                break
             }
             else{
                 check = true
@@ -154,26 +157,26 @@ class SignupViewController: UIViewController {
         }
         if check {
             let alert = UIAlertController(title: "가능한 아이디!", message: "아이디가 중복되지 않습니다.", preferredStyle: .alert)
-            
+
             let checkButton = UIAlertAction(title: "확인", style: .cancel )
-            
+
             alert.addAction(checkButton)
             self.present(alert, animated: true)
         }
-        
     }
     
     @IBAction func tapNicknameDoubleCheckButton(_ sender: UIButton) {
         var check = false
         for user in userList{
-            if(user.email == idTextField.text){
+            if(user.username == nicknameTextField.text){
                 let alert = UIAlertController(title: "닉네임 중복!", message: "다른 닉네임을 입력해주세요.", preferredStyle: .alert)
-                
+
                 let checkButton = UIAlertAction(title: "확인", style: .cancel )
-                
+
                 alert.addAction(checkButton)
                 self.present(alert, animated: true)
                 check = false
+                break
             }
             else{
                 check = true
@@ -181,9 +184,9 @@ class SignupViewController: UIViewController {
         }
         if check {
             let alert = UIAlertController(title: "가능한 닉네임!", message: "닉네임이 중복되지 않습니다.", preferredStyle: .alert)
-            
+
             let checkButton = UIAlertAction(title: "확인", style: .cancel )
-            
+
             alert.addAction(checkButton)
             self.present(alert, animated: true)
         }
@@ -195,30 +198,74 @@ class SignupViewController: UIViewController {
     }
     
     
-    @IBAction func tapGenderSegmentedControl(_ sender: UISegmentedControl) {
-        
-        if(sender.selectedSegmentIndex == 0){
-            user.gender = "남"
-        }
-        else{
-            user.gender = "여"
-        }
-    }
+//    @IBAction func tapGenderSegmentedControl(_ sender: UISegmentedControl) {
+//
+//        if(sender.selectedSegmentIndex == 0){
+//            user.gender = "남"
+//        }
+//        else{
+//            user.gender = "여"
+//        }
+//    }
     
     @IBAction func tapCompleteSignupButton(_ sender: UIButton) {
         
         guard let email = idTextField.text, let password = passwordTextField.text,let username = nicknameTextField.text else {return}
         
-        user.email = email
-        user.password = password
-        user.username = username
+        user?.email = email
+        user?.password = password
+        user?.username = username
+        self.postSingup()
         
-        userList.append(user)
-        guard let mainViewController = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as? MainViewController else {return}
-        mainViewController.modalPresentationStyle = .fullScreen
-        mainViewController.user = self.user
-        self.present(mainViewController, animated: true)
+
+        guard let tabBarController = storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? TabBarController else {return}
+        tabBarController.modalPresentationStyle = .fullScreen
+        self.present(tabBarController, animated: true)
+        
+        
     }
+    
+    func postSingup() {
+        let url = "http://54.180.199.139:8080/api/members/signup"
+        let header : HTTPHeaders = [
+            "Content-Type" : "application/json"
+        ]
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.headers = header
+        request.timeoutInterval = 10
+        
+        // POST 로 보낼 정보
+        let params = ["email" : user?.email ?? "",
+                      "password" : user?.password ?? "",
+                      "username" : user?.username ?? "",]
+        
+        // httpBody 에 parameters 추가
+        do {
+            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+        } catch {
+            print("http Body Error")
+        }
+        
+        AF.request(request).responseString { (response) in
+            switch response.result {
+            case .success:
+                print("POST 성공")
+                print(response.value)
+            case .failure(let error):
+                print("🚫 Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    }
+    
+    
+    
+
+    
+    
+    
+    
+    
 }
 
 extension SignupViewController:UITextFieldDelegate{

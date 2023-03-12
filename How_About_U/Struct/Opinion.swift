@@ -1,12 +1,12 @@
 
 import Foundation
 
-struct Opinion{
-    let user:String
-    let content:String
+struct Opinion:Decodable{
     
-    init(user: String, content: String) {
-        self.user = user
-        self.content = content
-    }
+    let content: String
+    let topic_title: String
+    let user_grade: String
+    let user_name: String
+    let vote: Bool
+    
 }

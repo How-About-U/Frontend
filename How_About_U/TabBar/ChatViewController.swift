@@ -1,11 +1,13 @@
 
 import UIKit
+import Alamofire
 
-var list:[Opinion] = [.init(user: "0", content: "0"), .init(user: "1", content: "1"), .init(user: "2", content: "2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"), .init(user: "3", content: "33333333333333333333333333333333333333333333333333333333"), .init(user: "4", content: "4"), .init(user: "5", content: "5"), .init(user: "6", content: "6"), .init(user: "7", content: "777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777"), .init(user: "8", content: "8"), .init(user: "9", content: "9"), .init(user: "10", content: "10"), .init(user: "11", content: "11"), .init(user: "12", content: "12"), .init(user: "13", content: "13"), .init(user: "14", content: "14"), .init(user: "15", content: "15"), .init(user: "16", content: "16"), .init(user: "17", content: "17"), .init(user: "18", content: "18"), .init(user: "19", content: "19"), .init(user: "20", content: "20"), .init(user: "21", content: "21"), .init(user: "22", content: "22"), .init(user: "23", content: "23"), .init(user: "24", content: "24"), .init(user: "25", content: "25"), .init(user: "26", content: "26"), .init(user: "27", content: "27"), .init(user: "28", content: "28"), .init(user: "29", content: "29"), .init(user: "30", content: "30"), ]
+
 
 class ChatViewController: UIViewController {
-    let user = User(email: "a", password: "a", username: "aa", gender: "남")
-    var opinionList:[Opinion] = []
+    var userTk:UserTk?
+    var opnList:[Opinion] = []
+    var user:User?
     var getcount = 0
     
     @IBOutlet weak var keyboardHeightConstraint: NSLayoutConstraint!
@@ -19,12 +21,15 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for opinin in 31...45{
-            list.append(.init(user: "\(opinin)", content: "\(opinin)"))
-        }
-        configureRefreshControl()
-        appendList()
         
+        //configureRefreshControl()
+        //appendList()
+        
+        //print(userTk)
+        
+        self.getOpn()
+        //print("userTk:\(userTk)")
+        //print("opnList:\(opnList)")
         chatTextField.delegate = self
         
         chatTableView.delegate = self
@@ -37,10 +42,10 @@ class ChatViewController: UIViewController {
         let nibName = UINib(nibName: "ChatCell", bundle: nil)
         chatTableView.register(nibName, forCellReuseIdentifier: "ChatCell")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardup), name: UIResponder.keyboardWillShowNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyBoardup), name: UIResponder.keyboardWillShowNotification, object: nil)
                 
                 // 키보드 내려올 때.
-        NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(keyBoardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -67,7 +72,7 @@ class ChatViewController: UIViewController {
     }
     
     @objc func keyBoardup(noti: Notification){
-        
+        print("qweqwe")
         
         if let keyboardFrame = (noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue{
             
@@ -115,11 +120,11 @@ class ChatViewController: UIViewController {
     
     func appendList(){
         for opinion in getcount...getcount+9{
-            if(opinion >= list.count){
+            if(opinion >= opnList.count){
                 break
             }
             else{
-                opinionList.append(list[opinion])
+                opnList.append(opnList[opinion])
             }
         }
         getcount += 10
@@ -130,22 +135,104 @@ class ChatViewController: UIViewController {
     }
     
     
+    func getOpn() {
+        let url = "http://54.180.199.139:8080/api/opin/getOpin"
+        AF.request(url,
+                   method: .get,
+                   parameters: nil,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type":"application/json"])
+        .validate(statusCode: 200..<300)
+        
+        .responseJSON{ [weak self] response in
+            guard let self = self else { return }
+            switch response.result {
+            case .success(let value):
+                print("getOpnValue : \(value)")
+
+                do{
+
+                    let dataJSon = try JSONSerialization.data(withJSONObject: value, options: [])
+                    let opnlist = try JSONDecoder().decode([Opinion].self, from: dataJSon)
+                    //print(opnlist)
+                    //self.list.append(opnlist)
+                    self.opnList = opnlist
+                    print(self.opnList)
+                    DispatchQueue.main.async {
+                        self.chatTableView.reloadData()
+                    }
+
+                } catch {
+                    print("decoding error")
+                }
+
+            case .failure(let error):
+                print("error : \(error)")
+                break;
+            }
+        }
+        
+    }
+    
+    
+    func postOpn(){
+        let url = "http://54.180.199.139:8080/api/opin/save"
+        let header : HTTPHeaders = [
+                        "Content-Type" : "application/json"
+                    ]
+        var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "POST"
+        request.headers = header
+        //request.timeoutInterval = 10
+
+        // POST 로 보낼 정보
+        let params = ["content": chatTextField.text,
+                      "token": userTk?.token,
+                      "vote": true] as [String : Any]
+
+        // httpBody 에 parameters 추가
+        do {
+            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+        } catch {
+            print("http Body Error")
+        }
+
+        AF.request(request).responseString { [weak self] (response) in
+            guard let self = self else { return }
+            switch response.result {
+            case .success:
+                print(" OPN POST 성공!!")
+                print("response:\(response)")
+                self.opnList.append(Opinion(content: self.chatTextField.text!, topic_title: "", user_grade: "", user_name: self.userTk!.username, vote: true))
+                DispatchQueue.main.async {
+                    self.chatTextField.text = ""
+                    self.chatTableView.reloadData()
+                }
+            case .failure(let error):
+                print("🚫 Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    }
+    
+    
     
     @IBAction func tapSendButton(_ sender: UIButton) {
-        opinionList.append(.init(user: user.username, content: chatTextField.text!))
+        self.postOpn()
         
-        chatTextField.text = ""
-        chatTableView.reloadData()
         
+        //chatTableView.reloadData()
+
         scrollToBottom()
     }
     
+   
+    
     func scrollToBottom(){
-        
-        let indexPath = IndexPath(row: opinionList.count-1, section: 0)
-        
+
+        let indexPath = IndexPath(row: opnList.count-1, section: 0)
+
         self.chatTableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
-        
+
     }
     
  
@@ -180,14 +267,22 @@ extension ChatViewController: UITableViewDelegate,UITableViewDataSource,UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return opinionList.count
+        return opnList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = chatTableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else { return UITableViewCell()}
         cell.selectionStyle = .none
-        cell.usernameLabel.text = "\(opinionList[indexPath.row].user)"
-        cell.contentLabel.text = "\(opinionList[indexPath.row].content)"
+        if opnList[indexPath.row].vote {
+            cell.chatStackView.layer.borderColor = UIColor.red.cgColor
+            cell.chatStackView.layer.borderWidth = 1
+        }
+        else{
+            cell.chatStackView.layer.borderColor = UIColor.blue.cgColor
+            cell.chatStackView.layer.borderWidth = 1
+        }
+        cell.usernameLabel.text = "\(opnList[indexPath.row].user_name)"
+        cell.contentLabel.text = "\(opnList[indexPath.row].content)"
         
         print("Rows: \(indexPath.row)")
         
